@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Space, Typography } from 'antd';
