@@ -21,7 +21,7 @@ const Board = () => {
     useEffect(() => {
         const fetchBoards = async () => {
             try {
-                const res = await axios.get('http://localhost:7000/board');
+                const res = await axios.get('https://api-fun-retro.herokuapp.com/board');
                 console.log(res.data);
                 setBoards(res.data.boards);
             } catch (error) {
