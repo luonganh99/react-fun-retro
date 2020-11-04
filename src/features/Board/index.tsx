@@ -1,52 +1,22 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Card, Space, Typography } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Route, Switch, RouteComponentProps } from 'react-router-dom';
+import React from 'react';
+import BoardList from './pages/BoardList';
+import BoardDetail from './pages/BoardDetail';
+import Header from '../../components/Header';
+import { Layout } from 'antd';
 
-const { Meta } = Card;
-const { Title } = Typography;
+const { Content: AntContent } = Layout;
 
-type Board = {
-    userId: number;
-    boardId: number;
-    name: string;
-    imageUrl: string;
-    createdAt: string;
-};
-
-const Board = () => {
-    const [boards, setBoards] = useState<Board[]>([]);
-
-    useEffect(() => {
-        const fetchBoards = async () => {
-            try {
-                const res = await axios.get('https://api-fun-retro.herokuapp.com/board');
-                console.log(res.data);
-                setBoards(res.data.boards);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchBoards();
-    }, []);
-
+const Board: React.FC<RouteComponentProps> = ({ match }) => {
     return (
         <>
-            <Title>Board List</Title>
-            <Space size='large'>
-                {boards.map((board) => (
-                    <Card
-                        style={{ width: 200 }}
-                        key={board.boardId}
-                        hoverable
-                        cover={<img alt={board.imageUrl} src={board.imageUrl} />}
-                        actions={[<EditOutlined key='edit' />]}
-                    >
-                        <Meta title={board.name} description={board.createdAt} />
-                    </Card>
-                ))}
-            </Space>
+            <Header />
+            <AntContent>
+                <Switch>
+                    <Route path={`${match.url}`} exact component={BoardList} />
+                    <Route path={`${match.url}/:boardId`} component={BoardDetail} />
+                </Switch>
+            </AntContent>
         </>
     );
 };
