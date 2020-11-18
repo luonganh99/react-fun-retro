@@ -8,7 +8,6 @@ import { GoogleLogin } from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import { refreshTokenSetup } from 'utils/refreshToken';
 
-
 const { Title } = Typography;
 
 const layout = {
@@ -103,7 +102,14 @@ const Login = () => {
                         Or <Link to='/signup'>register now!</Link>
                     </div>
                 </Form>
-                <div>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        margin: 'auto',
+                        width: '400px',
+                    }}
+                >
                     <GoogleLogin
                         clientId={GOOGLE_CLIENT_ID}
                         buttonText='Login with Google'

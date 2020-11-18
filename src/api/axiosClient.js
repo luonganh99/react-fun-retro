@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosFunRetro = axios.create({
-    baseURL: 'http://localhost:4000/',
+    baseURL: 'https://api-fun-retro.herokuapp.com/',
 });
 
 axiosFunRetro.interceptors.request.use(
