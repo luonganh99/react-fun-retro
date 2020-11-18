@@ -15,7 +15,7 @@ const SignUp = () => {
     const onFinish = async (values: any) => {
         delete values.confirm;
         console.log(values);
-        const res = await axiosFunRetro.post('/users/signup', values);
+        const res = await axiosFunRetro.post('/auth/signup', values);
         if (res.data.status === 'success') {
             history.push('/login');
         }

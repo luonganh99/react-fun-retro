@@ -1,23 +1,18 @@
-import { Route, Switch, RouteComponentProps } from 'react-router-dom';
 import React from 'react';
-import BoardList from './pages/BoardList';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import BoardDetail from './pages/BoardDetail';
-import Header from '../../components/Header';
-import { Layout } from 'antd';
+import BoardList from './pages/BoardList';
+import Layout from 'components/Layout';
 
-const { Content: AntContent } = Layout;
-
-const Board: React.FC<RouteComponentProps> = ({ match }) => {
+const Board: React.FC = () => {
+    const match = useRouteMatch();
     return (
-        <>
-            <Header />
-            <AntContent>
-                <Switch>
-                    <Route path={`${match.url}`} exact component={BoardList} />
-                    <Route path={`${match.url}/:boardId`} component={BoardDetail} />
-                </Switch>
-            </AntContent>
-        </>
+        <Layout>
+            <Switch>
+                <Route path={`${match.url}`} exact component={BoardList} />
+                <Route path={`${match.url}/:boardId`} component={BoardDetail} />
+            </Switch>
+        </Layout>
     );
 };
 

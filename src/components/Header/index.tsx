@@ -1,16 +1,33 @@
 import React from 'react';
-import { Avatar, Layout, Typography } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Avatar, Layout, Typography, Menu, Dropdown } from 'antd';
+import { UserOutlined, DownOutlined } from '@ant-design/icons';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuthContext } from 'context/AuthContext';
+import './index.scss';
 
-const { Title, Link: AntLink } = Typography;
+const { Title } = Typography;
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
-    const userInfo = JSON.parse(localStorage.getItem('user')!);
+    const { authData, onLogout } = useAuthContext();
+    const { userInfo } = authData;
+    const history = useHistory();
 
+    const handleLogout = () => {
+        onLogout();
+        history.push('/login');
+    };
+
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <div onClick={handleLogout}>Logout</div>
+            </Menu.Item>
+        </Menu>
+    );
     return (
         <AntHeader
+            className='test'
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
         >
             <Link to='/boards'>
@@ -20,9 +37,12 @@ const Header = () => {
             </Link>
             <div>
                 <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-                <Link to='/user' style={{ marginLeft: 10 }}>
-                    <AntLink type='warning'>{userInfo?.username}</AntLink>
-                </Link>
+                <Dropdown overlay={menu}>
+                    <Link to='/user' style={{ marginLeft: 10 }}>
+                        {userInfo.username} <DownOutlined style={{ marginLeft: 5 }} />
+                    </Link>
+                </Dropdown>
+                ,
             </div>
         </AntHeader>
     );

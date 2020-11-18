@@ -54,7 +54,6 @@ const BoardList: React.FC = () => {
     const handleOk = async () => {
         if (isEdit) {
             const payload = {
-                userId: 1,
                 boardName: name,
             };
             const res = await axiosFunRetro.patch(`/boards/${selectedBoardId}`, payload);
@@ -69,7 +68,6 @@ const BoardList: React.FC = () => {
             }
         } else {
             const payload = {
-                userId: 1,
                 boardName: name,
             };
             const res = await axiosFunRetro.post(`/boards`, payload);

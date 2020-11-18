@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Typography, Card, notification } from 'antd';
 import { axiosFunRetro } from 'api/axiosClient';
-import Header from '../../../../components/Header';
-import { Layout } from 'antd';
+import Layout from 'components/Layout';
+import { useAuthContext } from 'context/AuthContext';
 
-const { Content: AntContent } = Layout;
 const { Title } = Typography;
 const layout = {
     labelCol: { span: 6 },
@@ -15,7 +14,9 @@ const tailLayout = {
 };
 
 const EditUser = () => {
-    const userInfo = JSON.parse(localStorage.getItem('user')!);
+    const { authData } = useAuthContext();
+    const { userInfo } = authData;
+
     const [fields, setFields] = useState([
         { name: 'username', value: userInfo.username },
         { name: 'email', value: userInfo.email },
@@ -54,70 +55,67 @@ const EditUser = () => {
         }
     };
     return (
-        <>
-            <Header />
-            <AntContent>
-                <div style={{ height: '90vh', display: 'flex' }}>
-                    <Card hoverable style={{ width: 600, margin: 'auto' }}>
-                        <Title style={{ textAlign: 'center' }}>User Information</Title>
-                        <Form
-                            {...layout}
-                            name='basic'
-                            onFinish={onFinish}
-                            fields={fields}
-                            style={{
-                                marginTop: 10,
-                            }}
+        <Layout>
+            <div style={{ height: '90vh', display: 'flex' }}>
+                <Card hoverable style={{ width: 600, margin: 'auto' }}>
+                    <Title style={{ textAlign: 'center' }}>User Information</Title>
+                    <Form
+                        {...layout}
+                        name='basic'
+                        onFinish={onFinish}
+                        fields={fields}
+                        style={{
+                            marginTop: 10,
+                        }}
+                    >
+                        <Form.Item
+                            label='Username'
+                            name='username'
+                            rules={[{ message: 'Please input your username!' }]}
                         >
-                            <Form.Item
-                                label='Username'
-                                name='username'
-                                rules={[{ message: 'Please input your username!' }]}
-                            >
-                                <Input disabled={true} />
-                            </Form.Item>
+                            <Input disabled={true} />
+                        </Form.Item>
 
-                            <Form.Item
-                                label='Full Name'
-                                name='fullname'
-                                rules={[{ message: 'Please input your fullname!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
+                        <Form.Item
+                            label='Full Name'
+                            name='fullname'
+                            rules={[{ message: 'Please input your fullname!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                            <Form.Item
-                                name='email'
-                                label='E-mail'
-                                rules={[
-                                    {
-                                        type: 'email',
-                                        message: 'The input is not valid E-mail!',
-                                    },
-                                    {
-                                        message: 'Please input your E-mail!',
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
-                                label='Phone'
-                                name='phone'
-                                rules={[{ message: 'Please input your phone!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
+                        <Form.Item
+                            name='email'
+                            label='E-mail'
+                            rules={[
+                                {
+                                    type: 'email',
+                                    message: 'The input is not valid E-mail!',
+                                },
+                                {
+                                    message: 'Please input your E-mail!',
+                                },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label='Phone'
+                            name='phone'
+                            rules={[{ message: 'Please input your phone!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                            <Form.Item {...tailLayout}>
-                                <Button type='primary' htmlType='submit'>
-                                    Update
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    </Card>
-                </div>
-            </AntContent>
-        </>
+                        <Form.Item {...tailLayout}>
+                            <Button type='primary' htmlType='submit'>
+                                Update
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Card>
+            </div>
+        </Layout>
     );
 };
 
