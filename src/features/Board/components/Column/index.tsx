@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Input, Row, Space, Typography } from 'antd';
-import { axiosFunRetro } from 'api/axiosClient';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { useHistory } from 'react-router-dom';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Button, Card, Space, Typography } from 'antd';
+import React from 'react';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 const { Title } = Typography;
-
-type TColumn = {
-    columnId: number;
-    columnName: string;
-    boardId: number;
-};
-
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 type Card = {
     cardId: number;
     cardContent: string;
     columnId: number;
-};
-
-type ColumnProps = {
-    columnInfo: TColumn;
 };
 
 const Column: React.FC<any> = ({

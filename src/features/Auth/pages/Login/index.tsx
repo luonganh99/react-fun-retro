@@ -1,13 +1,13 @@
-import React from 'react';
-import { Form, Input, Button, Typography, Card } from 'antd';
+import { Button, Card, Form, Input, Typography } from 'antd';
 import { axiosFunRetro } from 'api/axiosClient';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
-
-import { refreshTokenSetup } from 'utils/refreshToken';
 import { FACEBOOK_APP_ID, GOOGLE_CLIENT_ID } from 'config/auth';
 import { useAuthContext } from 'context/AuthContext';
+import React from 'react';
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
+import { Link, useHistory } from 'react-router-dom';
+import { refreshTokenSetup } from 'utils/refreshToken';
+
 
 const { Title } = Typography;
 

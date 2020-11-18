@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { match, useRouteMatch } from 'react-router-dom';
-import { axiosFunRetro } from '../../../../api/axiosClient';
-import { Button, Card, Col, Input, Row, Typography } from 'antd';
-import Column from 'features/Board/components/Column';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { Col, Input, Row, Typography } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import deepClone from 'utils/deepClone';
+import Column from 'features/Board/components/Column';
+import React, { useEffect, useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { useRouteMatch } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
+import deepClone from 'utils/deepClone';
+import { axiosFunRetro } from '../../../../api/axiosClient';
 
 const { Title } = Typography;
 
@@ -25,7 +25,7 @@ type Board = {
     imageUrl: string;
     createdAt: string;
 };
-
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 type Column = {
     columnId: number;
     columnName: string;
@@ -86,10 +86,11 @@ const BoardDetail: React.FC = () => {
         socket.on('changeData', (res: any) => {
             socket.emit('initialData', { boardId });
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOnDragEnd = async (result: any) => {
-        const { source, destination, draggableId } = result;
+        const { source, destination } = result;
 
         if (!destination) {
             return;
