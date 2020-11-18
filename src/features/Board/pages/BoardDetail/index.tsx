@@ -76,7 +76,7 @@ const BoardDetail: React.FC = () => {
 
         fetchData();
 
-        socket = socketIOClient('http://localhost:4000');
+        socket = socketIOClient('https://api-fun-retro.herokuapp.com/');
         socket.emit('joinBoard', { boardId });
         socket.emit('initialData', { boardId });
         socket.on('getData', (res: any) => {
